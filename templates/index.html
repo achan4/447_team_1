@@ -14,8 +14,10 @@
 
         </style>
         <title>Flask CRUD Page</title>
+
     </head>
     <body>
+        
         <head>
             <title>MAIN</title>
             <meta charset="UTF-8">
@@ -39,56 +41,101 @@
               display: none;
             }
             </style>
-            </head>
-            <body>
+        </head>
+
+          
+
+        <body>
+        
+        <!-- Links (sit on top) -->
+        <div class="w3-top">
+            <div class="w3-row w3-padding w3-black">
+            <div class="w3-col s3">
+                <a href="/main" class="w3-button w3-block w3-black">HOME</a>
+            </div>
+            <div class="w3-col s3">
+                <a href="/map" class="w3-button w3-block w3-black">ABOUT</a>
+            </div>
+            <div class="w3-col s3">
+                <a href="/data" class="w3-button w3-block w3-black">MENU</a>
+            </div>
             
-            <!-- Links (sit on top) -->
-            <div class="w3-top">
-              <div class="w3-row w3-padding w3-black">
-                <div class="w3-col s3">
-                  <a href="/main" class="w3-button w3-block w3-black">HOME</a>
-                </div>
-                <div class="w3-col s3">
-                  <a href="/map" class="w3-button w3-block w3-black">ABOUT</a>
-                </div>
-                <div class="w3-col s3">
-                  <a href="/data" class="w3-button w3-block w3-black">MENU</a>
-                </div>
-                
+            </div>
+        </div>
+        
+        
+        <div class="w3-container" id="about">
+            <div class="w3-content" style="max-width:700px">
+              <h5 class="w3-center w3-padding-64"><span class="w3-tag w3-wide">ABOUT THE CAFE</span></h5>
+              <p>The Cafe was founded in blabla by Mr. Smith in lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              <p>In addition to our full espresso and brew bar menu, we serve fresh made-to-order breakfast and lunch sandwiches, as well as a selection of sides and salads and other good stuff.</p>
+              <div class="w3-panel w3-leftbar w3-light-grey">
+                <p><i>"Use products from nature for what it's worth - but never too early, nor too late." Fresh is the new sweet.</i></p>
+                <p>Chef, Coffeeist and Owner: Liam Brown</p>
               </div>
+              <img src="/w3images/coffeeshop.jpg" style="width:100%;max-width:1000px" class="w3-margin-top">
+              <p><strong>Opening hours:</strong> everyday from 6am to 5pm.</p>
+              <p><strong>Address:</strong> 15 Adr street, 5015, NY</p>
             </div>
-            
-            
-            
-            
-            <!-- End page content -->
+            <div>
+                {% for crime in crimes %}
+                    {% set id = crime["_id"] %}
+                    <tr>
+                        <td>
+                            {{ crime["RowID"] }}
+        
+                        </td>
+                        <td>
+                            {{ crime["Location"] }}
+                        </td>
+                        <td>
+                            {{ crime["CrimeCode"] }}
+                        </td>
+                        <td>
+                            <a href="/update_student/{{id}}"><button type="button" class="btn btn-secondary">Update</button></a>
+                        </td>
+                        <td>
+                                <a href="/remove_student/{{id}}"><button type="button" class="btn btn-danger">Delete</button></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
             </div>
-            
-            
-            
-            <script>
-            // Tabbed Menu
-            function openMenu(evt, menuName) {
-              var i, x, tablinks;
-              x = document.getElementsByClassName("menu");
-              for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-              }
-              tablinks = document.getElementsByClassName("tablink");
-              for (i = 0; i < x.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" w3-dark-grey", "");
-              }
-              document.getElementById(menuName).style.display = "block";
-              evt.currentTarget.firstElementChild.className += " w3-dark-grey";
+          </div>
+        
+        
+        <script>
+        // Tabbed Menu
+        function openMenu(evt, menuName) {
+            var i, x, tablinks;
+            x = document.getElementsByClassName("menu");
+            for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
             }
-            document.getElementById("myLink").click();
-            </script>
-            
-            </body>
-            
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" w3-dark-grey", "");
+            }
+            document.getElementById(menuName).style.display = "block";
+            evt.currentTarget.firstElementChild.className += " w3-dark-grey";
+        }
+        document.getElementById("myLink").click();
+        </script>
+        
+        
+
+        </body>
+        
+
+        
+        
+        
+        <!-- End page content -->
+        </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     </body>
-
+    <body>
+        
+    </body>
 </html>
