@@ -19,33 +19,24 @@ CORS(app)
 
 @app.route('/')
 def index():
-    crimes = []
-    crimeDataCol = crimeData.find({}).limit(2)
-    for thing in crimeDataCol:
-        crimes.append(thing)
     return render_template("home.html", crimes=crimes)
 
 @app.route('/home')
 def home():
-    crimes = []
-    crimeDataCol = crimeData.find({}).limit(2)
-    for thing in crimeDataCol:
-        crimes.append(thing)
+
     return render_template("home.html", crimes=crimes)
+    
 @app.route('/map')
 def map():
-    crimes = []
-    crimeDataCol = crimeData.find({}).limit(2)
-    for thing in crimeDataCol:
-        crimes.append(thing)
     return render_template("map.html", crimes=crimes)
+
 @app.route('/data')
 def data():
-    crimes = []
-    crimeDataCol = crimeData.find({}).limit(2)
-    for thing in crimeDataCol:
-        crimes.append(thing)
     return render_template("data.html", crimes=crimes)
 
 if __name__ == "__main__":
+    crimes = []
+    crimeDataCol = crimeData.find({}).limit(2)
+    for thing in crimeDataCol:
+        crimes.append(thing)
     app.run(debug=True)
