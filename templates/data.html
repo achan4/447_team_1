@@ -80,17 +80,18 @@
         }
 
         .dropbtn {
-            background-color: #3498DB;
+            background-color: rgb(54, 53, 53);
             color: white;
             padding: 16px;
             font-size: 16px;
+            min-width: 100%;
             border: none;
             cursor: pointer;
         }
 
         .dropbtn:hover,
         .dropbtn:focus {
-            background-color: black;
+            background-color: gray;
         }
 
         .dropdown {
@@ -102,14 +103,14 @@
             display: none;
             position: absolute;
             background-color: #f1f1f1;
-            min-width: 160px;
+            min-width: 100%;
             overflow: auto;
             box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
             z-index: 1;
         }
 
         .dropdown-content a {
-            color: black;
+            color: gray;
             padding: 12px 16px;
             text-decoration: none;
             display: block;
@@ -122,6 +123,27 @@
         .show {
             display: block;
         }
+
+        .button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .vertical-center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            -ms-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
     </style>
 </head>
 
@@ -133,34 +155,40 @@
         <span style="color:#f2f2f2;font-size:35px;cursor:pointer;float: right; right:10px" onclick="openNav()">Filter
             &#9776; </span>
     </div>
-    
+
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">About</a>
+        <a href="#">Shrooms</a>
         <div class="dropdown">
-            <button onclick="filterDropDown('shrooms')" class="dropbtn">shrooms</button>
+            <button onclick="filterDropDown('shrooms')" class="dropbtn">choose a shroom</button>
             <div id="shrooms" class="dropdown-content">
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+                <a href="#home">pink</a>
+                <a href="#about">snoop</a>
+                <a href="#contact">magical</a>
             </div>
         </div>
+        <a href="#">weapon</a>
         <div class="dropdown">
-            <button onclick="filterDropDown('weapon')" class="dropbtn">Weapon</button>
+            <button onclick="filterDropDown('weapon')" class="dropbtn">choose a weapon</button>
             <div id="weapon" class="dropdown-content">
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+                <a href="#home">penguin</a>
+                <a href="#about">patrick</a>
+                <a href="#contact">pattyrick</a>
             </div>
         </div>
+        <a href="#">drugs</a>
         <div class="dropdown">
-            <button onclick="filterDropDown('drugs')" class="dropbtn">drugs</button>
+            <button onclick="filterDropDown('drugs')" class="dropbtn">choose a drug</button>
             <div id="drugs" class="dropdown-content">
-                <a href="#home">Home</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
+                <a href="#home">mdma</a>
+                <a href="#about">weed</a>
+                <a href="#contact">crack</a>
             </div>
         </div>
+        <div class="vertical-center">
+            <button class="button">Apply Changes</button>
+        </div>
+        
     </div>
 
     <script>
