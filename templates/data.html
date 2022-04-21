@@ -95,7 +95,7 @@
 
         .dropdown {
             position: relative;
-            display: inline-block;
+            display: block;
         }
 
         .dropdown-content {
@@ -133,12 +133,12 @@
         <span style="color:#f2f2f2;font-size:35px;cursor:pointer;float: right; right:10px" onclick="openNav()">Filter
             &#9776; </span>
     </div>
-
+    
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#">About</a>
         <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">shrooms</button>
+            <button onclick="filterDropDown('shrooms')" class="dropbtn">shrooms</button>
             <div id="shrooms" class="dropdown-content">
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
@@ -146,7 +146,7 @@
             </div>
         </div>
         <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">Weapon</button>
+            <button onclick="filterDropDown('weapon')" class="dropbtn">Weapon</button>
             <div id="weapon" class="dropdown-content">
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
@@ -154,7 +154,7 @@
             </div>
         </div>
         <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">drugs</button>
+            <button onclick="filterDropDown('drugs')" class="dropbtn">drugs</button>
             <div id="drugs" class="dropdown-content">
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
@@ -166,8 +166,8 @@
     <script>
         /* When the user clicks on the button, 
         toggle between hiding and showing the dropdown content */
-        function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
+        function filterDropDown(a) {
+            document.getElementById(a).classList.toggle("show");
         }
 
         // Close the dropdown if the user clicks outside of it
