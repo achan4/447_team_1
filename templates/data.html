@@ -143,6 +143,7 @@
             padding-top: 10px;
             text-align: center;
         }
+
     </style>
 </head>
 
@@ -160,24 +161,64 @@
         <form action="/addDataFilter" method="POST">
             <a href="#">Weapon type</a>
             <select name="weapon" id="weapon" class="dropbtn">
-                <option value="gun">gun</option>
-                <option value="knife">knife</option>
-                <option value="Java">Java</option>
+                <option value="NO_FILTER">NO_FILTER</option>
+                <option value="HANDGUN">HANDGUN</option>
+                <option value="BLUNT_OBJECT">BLUNT_OBJECT</option>
+                <option value="PERSONAL_WEAPONS">PERSONAL_WEAPONS</option>
+                <option value="FIREARM">FIREARM</option>
+                <option value="ASPHYXIATION">ASPHYXIATION</option>
+                <option value="KNIFE_CUTTING_INSTRUMENT">KNIFE_CUTTING_INSTRUMENT</option>
+                <option value="OTHER">OTHER</option>
+                <option value="SHOTGUN">SHOTGUN</option>
+                <option value="UNKNOWN">UNKNOWN</option>
+                <option value="AUTOMATIC_FIREARM">AUTOMATIC_FIREARM</option>
+                <option value="AUTOMATIC_HANDGUN">AUTOMATIC_HANDGUN</option>
+                <option value="OTHER_FIREARM">OTHER_FIREARM</option>
+                <option value="MOTOR_CEHICLE_VESSEL">MOTOR_CEHICLE_VESSEL</option>
+                <option value="RIFLE">RIFLE</option>
+                <option value="N/A">N/A</option>
+                <option value="POISON">POISON</option>
+                <option value="FIRE_INCENDIARY_DEVICE">FIRE_INCENDIARY_DEVICE</option>
+                <option value="KNIFE">KNIFE</option>
+                <option value="FIRE">FIRE</option>
+                <option value="HANDS">HANDS</option>
+                <option value="AUTOMATIC_RIFLE">AUTOMATIC_RIFLE</option>
+                <option value="DRUGS_NARCOTICS_SLEEPING_PILLS">DRUGS_NARCOTICS_SLEEPING_PILLS</option>
             </select>
             <a href="#">Location</a>
             <select name="location" id="location" class="dropbtn">
-                <option value="howard">howard</option>
-                <option value="baltimore">baltimore</option>
-                <option value="carol">carol</option>
-            </select>
-            <a href="#">Crime</a>
-            <select name="crime" id="crime" class="dropbtn">
+                <option value="NO_FILTER">NO_FILTER</option>
+                <option value="SOUTHEAST">SOUTHEAST</option>
+                <option value="EASTERN">EASTERN</option>
                 <option value="SOUTHERN">SOUTHERN</option>
-                <option value="battery">battery</option>
-                <option value="murder">murder</option>
+                <option value="CENTRAL">CENTRAL</option>
+                <option value="NORTHEAST">NORTHEAST</option>
+                <option value="NORTHWEST">NORTHWEST</option>
+                <option value="NORTHERN">NORTHERN</option>
+                <option value="WESTERN">WESTERN</option>
+                <option value="SOUTHWEST">SOUTHWEST</option>
+            </select>
+            <a href="#">Type of Crime</a>
+            <select name="crime" id="crime" class="dropbtn">
+                <option value="NO_FILTER">NO_FILTER</option>
+                <option value="LARCENY">LARCENY</option>
+                <option value="LARCENY FROM AUTO">LARCENY FROM AUTO</option>
+                <option value="ROBBERY - COMMERCIAL">ROBBERY - COMMERCIAL</option>
+                <option value="COMMON ASSAULT">COMMON ASSAULT</option>
+                <option value="AGG. ASSAULT">AGG. ASSAULT</option>
+                <option value="AUTO THEFT">AUTO THEFT</option>
+                <option value="BURGLARY">BURGLARY</option>
+                <option value="ROBBERY - STREET">ROBBERY - STREET</option>
+                <option value="ROBBERY - RESIDENCE">ROBBERY - RESIDENCE</option>
+                <option value="ROBBERY - CARJACKING">ROBBERY - CARJACKING</option>
+                <option value="SHOOTING">SHOOTING</option>
+                <option value="ARSON">ARSON</option>
+                <option value="RAPE">RAPE</option>
+                <option value="HOMICIDE">HOMICIDE</option>
             </select>
             <a href="#">time</a>
             <select name="time" id="time" class="dropbtn">
+                <option value="NO_FILTER">NO_FILTER</option>
                 <option value="morning">morning</option>
                 <option value="evening">evening</option>
                 <option value="afternoon">afternoon</option>
@@ -187,6 +228,16 @@
             </div>
         </form>
     </div>
+    <br>
+    <table>
+        <tr>Filters:</tr>
+        <tr>
+            <th><div>{{formFilters[0]}}, </div></th>
+            <th><div>{{formFilters[1]}}, </div></th>
+            <th><div>{{formFilters[2]}}, </div></th>
+            <th><div>{{formFilters[3]}}, </div></th>
+        </tr>
+    </table>
     <table style="width:100%">
         <tr>
             <th>
@@ -201,10 +252,10 @@
         </tr>
         <tr></tr>
     </table>
-    
+
     <script>
         function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("mySidenav").style.width = "350px";
         }
 
         function closeNav() {
@@ -219,7 +270,7 @@
         function drawChart() {
 
             var data = google.visualization.arrayToDataTable([
-                ['Task', 'Hours per Day'],
+                ['Weapons', 'percent'],
                 ['Work', 11],
                 ['Eat', 2],
                 ['Commute', 2],
