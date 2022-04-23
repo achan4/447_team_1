@@ -1,3 +1,5 @@
+#from crypt import methods
+from pickle import GET
 from flask import Flask, jsonify, request, render_template, redirect, url_for, flash
 from pymongo import MongoClient
 from flask_cors import CORS
@@ -7,7 +9,7 @@ import csv
 # Instantiation
 app = Flask(__name__)
 
-#cluster = MongoClient("mongodb+srv://team1:team1@cluster0.pmmnz.mongodb.net/smallData?retryWrites=true&w=majority", tlsCAFile=certifi.where())
+
 cluster = MongoClient("mongodb+srv://team1:team1@cluster0.pmmnz.mongodb.net/smallData?retryWrites=true&w=majority", tlsCAFile=certifi.where())
 db = cluster["smallData"]
 crimeData = db["smallCrime"]
@@ -32,6 +34,11 @@ def map():
 
 @app.route('/data')
 def data():
+    return render_template("data.html", crimes=crimes)
+
+@app.route('/addDataFilter')
+def addDataFilter():
+    print(request)
     return render_template("data.html", crimes=crimes)
 
 if __name__ == "__main__":
