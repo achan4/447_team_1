@@ -18,7 +18,7 @@ team1 = cluster["team1"]
 description = team1["description"]
 district = team1["district"]
 time = team1["time"]
-weapon = team1["weapon"]
+weaponDb = team1["weapon"]
 # Settings
 CORS(app)
 
@@ -44,7 +44,8 @@ def data():
     formFilters.append(request.form.get("weapon"))
     formFilters.append(request.form.get("location"))
     formFilters.append(request.form.get("time"))
-    return render_template("data.html", crimes=crimes, formFilters=formFilters)
+    weaponStat = createPieChartData(formFilters[0], formFilters[1], formFilters[2], formFilters[3])
+    return render_template("data.html", crimes=crimes, formFilters=formFilters, weaponStat = weaponStat)
 
 @app.route('/addDataFilter', methods=["POST"])
 def addDataFilter():
@@ -53,28 +54,30 @@ def addDataFilter():
     formFilters.append(request.form.get("weapon"))
     formFilters.append(request.form.get("location"))
     formFilters.append(request.form.get("time"))
-    # largeD = large.find({})
-    # counter = 0
-    # for item in largeD:
-    #     if(item.get("District") == crime):
-    #         print(item.get("District"))
-    #         counter += 1
-    # print(counter)
-    createPieChartData(formFilters[0], formFilters[1], formFilters[2], formFilters[3])
-    return render_template("data.html", crimes=crimes, formFilters=formFilters)
+
+    weaponStat = createPieChartData(formFilters[0], formFilters[1], formFilters[2], formFilters[3])
+    return render_template("data.html", crimes=crimes, formFilters=formFilters, weaponStat = weaponStat)
 
 def createPieChartData(crime, weapon, location, time):
     crimeStats = []
-    print(crime, weapon, location, time)
+
     if((crime == None or crime == "NO_FILTER") and
         (weapon == None or weapon == "NO_FILTER") and 
         (location == None or location == "NO_FILTER") and 
         (time == None or time == "NO_FILTER")):
-        # crimeData = weapon.find({})
-        # for item in crimeData:
-        #     print(item)
-        pass
-    pass
+        crimeData = weaponDb.find({})
+        test = []
+        for item in crimeData:
+           test.append(item)
+        
+        counter =0
+        theLoop = test[0]
+        for key in theLoop:
+            if counter != 0:
+                crimeStats.append(int(theLoop.get(key)))
+            counter += 1
+
+    return crimeStats
 
 if __name__ == "__main__":
     crimes = []
