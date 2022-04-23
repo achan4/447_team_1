@@ -252,7 +252,6 @@
         </tr>
         <tr></tr>
     </table>
-
     <script>
         function openNav() {
             document.getElementById("mySidenav").style.width = "350px";
@@ -271,15 +270,16 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Weapons', 'percent'],
-                ['Work', 11],
+                ['HANDGUN', 8],
                 ['Eat', 2],
                 ['Commute', 2],
                 ['Watch TV', 2],
-                ['Sleep', 7]
+                ['Sleep', 7],
+                ['test', 2],
             ]);
 
             var options = {
-                title: 'My Daily Activities'
+                title: "Weapon Graph"
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -287,6 +287,7 @@
             chart.draw(data, options);
         }
     </script>
+    
 
     <script type="text/javascript">
         google.charts.load("current", { packages: ["corechart"] });
