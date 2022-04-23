@@ -172,7 +172,7 @@
             </select>
             <a href="#">Crime</a>
             <select name="crime" id="crime" class="dropbtn">
-                <option value="assult">assult</option>
+                <option value="SOUTHERN">SOUTHERN</option>
                 <option value="battery">battery</option>
                 <option value="murder">murder</option>
             </select>
@@ -186,75 +186,22 @@
                 <input class="button" type="submit" value="Apply Changes" />
             </div>
         </form>
-        <!-- <a href="#">Shrooms</a>
-        <div class="dropdown">
-            <button onclick="filterDropDown('shrooms')" class="dropbtn">choose a shroom</button>
-            <div id="shrooms" class="dropdown-content">
-                <a href="#home">pink</a>
-                <a href="#about">snoop</a>
-                <a href="#contact">magical</a>
-            </div>
-        </div>
-        <a href="#">weapon</a>
-        <div class="dropdown">
-            <button onclick="filterDropDown('weapon')" class="dropbtn">choose a weapon</button>
-            <div id="weapon" class="dropdown-content">
-                <a href="#home">penguin</a>
-                <a href="#about">patrick</a>
-                <a href="#contact">pattyrick</a>
-            </div>
-        </div>
-        <a href="#">drugs</a>
-        <div class="dropdown">
-            <button onclick="filterDropDown('drugs')" class="dropbtn">choose a drug</button>
-            <div id="drugs" class="dropdown-content">
-                <a href="#home">mdma</a>
-                <a href="#about">weed</a>
-                <a href="#contact">crack</a>
-            </div>
-        </div>
-        <a href="#">test</a>
-        <form action="#">
-            <select name="languages" id="lang" class="dropbtn">
-                <option value="javascript">JavaScript</option>
-                <option value="php">PHP</option>
-                <option value="java">Java</option>
-                <option value="golang">Golang</option>
-                <option value="python">Python</option>
-                <option value="c#">C#</option>
-                <option value="C++">C++</option>
-                <option value="erlang">Erlang</option>
-            </select>
-        </form>
-        <div class="vertical-center">
-            <button class="button">Apply Changes</button>
-        </div> -->
-
     </div>
-
-    <!-- <script>
-        /* When the user clicks on the button, 
-        toggle between hiding and showing the dropdown content */
-        function filterDropDown(a) {
-            document.getElementById(a).classList.toggle("show");
-        }
-
-        // Close the dropdown if the user clicks outside of it
-        window.onclick = function (event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-    </script> -->
-
-
+    <table style="width:100%">
+        <tr>
+            <th>
+                <div id="piechart" style="width: 600px; height: 500px;"></div>
+            </th>
+            <th>
+                <div id="barchart_values" style="width: 600px; height: 500px;"></div>
+            </th>
+            <th>
+                <div id="curve_chart" style="width: 600px; height: 500px"></div>
+            </th>
+        </tr>
+        <tr></tr>
+    </table>
+    
     <script>
         function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
@@ -262,6 +209,91 @@
 
         function closeNav() {
             document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['Work', 11],
+                ['Eat', 2],
+                ['Commute', 2],
+                ['Watch TV', 2],
+                ['Sleep', 7]
+            ]);
+
+            var options = {
+                title: 'My Daily Activities'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+    <script type="text/javascript">
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ["Element", "Density", { role: "style" }],
+                ["Copper", 8.94, "#b87333"],
+                ["Silver", 10.49, "silver"],
+                ["Gold", 19.30, "gold"],
+                ["Platinum", 21.45, "color: #e5e4e2"]
+            ]);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                },
+                2]);
+
+            var options = {
+                title: "Density of Precious Metals, in g/cm^3",
+                width: 600,
+                height: 400,
+                bar: { groupWidth: "95%" },
+                legend: { position: "none" },
+            };
+            var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+            chart.draw(view, options);
+        }
+    </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Year', 'Sales', 'Expenses'],
+                ['2004', 1000, 400],
+                ['2005', 1170, 460],
+                ['2006', 660, 1120],
+                ['2007', 1030, 540]
+            ]);
+
+            var options = {
+                title: 'Company Performance',
+                curveType: 'function',
+                legend: { position: 'bottom' }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+            chart.draw(data, options);
         }
     </script>
 </body>
