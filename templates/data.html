@@ -125,7 +125,7 @@
         }
 
         .button {
-            
+
             background-color: #4CAF50;
             /* Green */
             border: none;
@@ -136,12 +136,12 @@
             display: inline-block;
             font-size: 16px;
             cursor: pointer;
-            
+
         }
 
         .vertical-center {
             padding-top: 10px;
-            text-align: center;        
+            text-align: center;
         }
     </style>
 </head>
@@ -157,7 +157,36 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">Shrooms</a>
+        <form action="/addDataFilter">
+            <a href="#">Weapon type</a>
+            <select name="weapon" id="weapon" class="dropbtn">
+                <option value="gun">gun</option>
+                <option value="knife">knife</option>
+                <option value="Java">Java</option>
+            </select>
+            <a href="#">Location</a>
+            <select name="location" id="location" class="dropbtn">
+                <option value="howard">howard</option>
+                <option value="baltimore">baltimore</option>
+                <option value="carol">carol</option>
+            </select>
+            <a href="#">Crime</a>
+            <select name="crime" id="crime" class="dropbtn">
+                <option value="assult">assult</option>
+                <option value="battery">battery</option>
+                <option value="murder">murder</option>
+            </select>
+            <a href="#">time</a>
+            <select name="time" id="time" class="dropbtn">
+                <option value="morning">morning</option>
+                <option value="evening">evening</option>
+                <option value="afternoon">afternoon</option>
+            </select>
+            <div class="vertical-center">
+                <input class="button" type="submit" value="Apply Changes" />
+            </div>
+        </form>
+        <!-- <a href="#">Shrooms</a>
         <div class="dropdown">
             <button onclick="filterDropDown('shrooms')" class="dropbtn">choose a shroom</button>
             <div id="shrooms" class="dropdown-content">
@@ -184,13 +213,26 @@
                 <a href="#contact">crack</a>
             </div>
         </div>
+        <a href="#">test</a>
+        <form action="#">
+            <select name="languages" id="lang" class="dropbtn">
+                <option value="javascript">JavaScript</option>
+                <option value="php">PHP</option>
+                <option value="java">Java</option>
+                <option value="golang">Golang</option>
+                <option value="python">Python</option>
+                <option value="c#">C#</option>
+                <option value="C++">C++</option>
+                <option value="erlang">Erlang</option>
+            </select>
+        </form>
         <div class="vertical-center">
             <button class="button">Apply Changes</button>
-        </div>
-        
+        </div> -->
+
     </div>
 
-    <script>
+    <!-- <script>
         /* When the user clicks on the button, 
         toggle between hiding and showing the dropdown content */
         function filterDropDown(a) {
@@ -210,7 +252,7 @@
                 }
             }
         }
-    </script>
+    </script> -->
 
 
     <script>
