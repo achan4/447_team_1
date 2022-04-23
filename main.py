@@ -36,7 +36,7 @@ def map():
 def data():
     return render_template("data.html", crimes=crimes)
 
-@app.route('/addDataFilter')
+@app.route('/addDataFilter', methods=["POST"])
 def addDataFilter():
     print(request)
     return render_template("data.html", crimes=crimes)
