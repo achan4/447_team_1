@@ -1,13 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Map</title>
         <style>
+            
+            #map {position: absolute; top: 200px; bottom: 100px; left: 250px; right: 250px;}
+            
             body {
                 margin: 0;
                 font-family: Arial, Helvetica, sans-serif;
+            }
+            
+            .legend {
+                line-height: 18px;
+                color: #555;
+                background-color: white;
+                line-height: 24px;
+                padding: 6px 8px;
+            }
+            
+            .legend i {
+                width: 15px;
+                height: 15px;
+                float: left;
+                margin-right: 8px;
+                opacity: 0.7;
             }
 
             .topnav {
@@ -46,19 +69,44 @@
             <h1 style="color:black;">
                 Baltimore
             </h1>
-              
-            <div>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d98821.03029998238!2d-76.69053678692133!3d39.28468541980096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c803aed6f483b7%3A0x44896a84223e758!2sBaltimore%2C%20MD!5e0!3m2!1sen!2sus!4v1650752802481!5m2!1sen!2sus" width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                        width="400"
-                        height="300"
-                        frameborder="0"
-                        style="border:0;"
-                        allowfullscreen=""
-                        aria-hidden="false"
-                        tabindex="0">
-                </iframe>
-            </div>
         </center>
-
     </body>
+    <body>
+        <div id = "map"></div>
+        <script>
+
+            var map = L.map('map').setView([39.28571, -76.60839], 12);
+            L.tileLayer('https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=fHqpumuM69AG9TmV1Tdv', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
+            }).addTo(map);
+
+            var marker = new L.marker([39.28571, -76.60839]).addTo(map)
+            
+
+            //Creates the map key
+            var legend = L.control({position: 'bottomright'});
+            
+            legend.onAdd = function(map){
+                var div = L.DomUtil.create('div', 'legend');
+
+                div.innerHTML += "<h4>MAP KEY</h4>";
+                div.innerHTML += '<i style="background: #448D40"></i><span>LARCENY</span><br>';
+                div.innerHTML += '<i style="background: #477AC2"></i><span>BURGLARY</span><br>';
+                div.innerHTML += '<i style="background: #de2d26"></i><span>AGG. ASSAULT</span><br>';
+
+                cat = ["AGG. ASSAULT","LARCENY","COMMON ASSAULT","BURGLARY","ROBBERY - COMMERCIAL"];
+
+                
+                return div;
+            };
+
+            legend.addTo(map);
+
+        //Goes through each row and gets long and lad coordinates
+        //  for (var i = 0; i < crimes.length; i++){
+        //      var marker = new L.marker([parseFloat(crimes[i]['Latitude']), parseFloat(crimes[i]['Longitude'])]).addTo(map); 
+        // }
+
+        </script>
+    </body>
+    
 </html>
