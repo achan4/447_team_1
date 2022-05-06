@@ -235,7 +235,7 @@
             <th><div>{{formFilters[0]}}, </div></th>
             <th><div>{{formFilters[1]}}, </div></th>
             <th><div>{{formFilters[2]}}, </div></th>
-            <th><div>{{formFilters[3]}}, </div></th>
+            <th><div>{{formFilters[3]}} </div></th>
         </tr>
     </table>
     <table style="width:100%">
@@ -270,16 +270,29 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Weapons', 'percent'],
-                ['HANDGUN', 8],
-                ['Eat', 2],
-                ['Commute', 2],
-                ['Watch TV', 2],
-                ['Sleep', 7],
-                ['test', 2],
+                ['HANDGUN', 433],
+                ['BLUNT OBJECT', 246],
+                ['PERSONAL_WEAPONS', 2054],
+                ['FIREARM', 45989],
+                ['ASPHYXIATION', 23],
+                ['OTHER', 29986],
+                ['SHOTGUN', 17],
+                ['UNKNOWN', 127],
+                ['AUTOMATIC_FIREARM', 22],
+                ['OTHER_FIREARM', 38],
+                ['MOTOR_VEHICLE_VESSEL', 56],
+                ['RIFLE',8],
+                ['POISON', 5],
+                ["Fire incendiary Device", 6],
+                ["Knife", 18582],
+                ["Fire", 2316],
+                ["Hands", 7085],
+                ["Automatic Rifle", 4],
+                ["Drugs Narcotics Sleep", 1]
             ]);
 
             var options = {
-                title: "Weapon Graph"
+                title: "Weapon Pie Chart"
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -287,7 +300,6 @@
             chart.draw(data, options);
         }
     </script>
-    
 
     <script type="text/javascript">
         google.charts.load("current", { packages: ["corechart"] });
