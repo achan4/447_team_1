@@ -20,6 +20,7 @@ district = team1["district"]
 time = team1["time"]
 weaponDb = team1["weapon"]
 filtered = team1["Filtered"]
+master = team1["Master"]
 # Settings
 CORS(app)
 
@@ -51,35 +52,41 @@ def data():
     
 @app.route('/addDataFilter', methods=["POST"])
 def addDataFilter():
-    # formFilters = []
-    # formFilters.append(request.form.get("crime"))
-    # formFilters.append(request.form.get("weapon"))
-    # formFilters.append(request.form.get("location"))
-    # formFilters.append(request.form.get("time"))
-
-    # weaponStat = createPieChartData(formFilters[0], formFilters[1], formFilters[2], formFilters[3])
-    # return render_template("data.html", crimes=crimes, formFilters=formFilters, weaponStat = weaponStat)
-    return render_template("home.html")
+    crime = request.form.get("crime")
+    weapon = request.form.get("weapon")
+    location = request.form.get("location")
+    time = request.form.get("time")
+    month = request.form.get("month")
+    inout = request.form.get("inside/outside")
+    weaponDict = createPieChartData(crime, location, time, month, inout)
+    return render_template("data.html", weaponDict = weaponDict)
 
 def createPieChartData(crime, location, time, month, inout):
+    """ NO_FILTER """
     """ weaponsList = ["HANDGUN", "BLUNT_OBJECT", "PERSONAL_WEAPONS", "FIREARM", "ASPHYXIATION", "KNIFE_CUTTING_INSTRUMENT", "OTHER","SHOTGUN", "UNKNOWN", "AUTOMATIC_FIREARM", "AUTOMATIC HANDGUN", "OTHER_FIREMARM","MOTOR_VEHICLE_VESSEL","RIFLE","NA"] """
     weaponsList = ["HANDGUN", "BLUNT_OBJECT", "PERSONAL_WEAPONS", "FIREARM", "ASPHYXIATION", "KNIFE_CUTTING_INSTRUMENT", "OTHER" , "SHOTGUN", "UNKNOWN", "AUTOMATIC_FIREARM", "AUTOMATIC HANDGUN", "OTHER_FIREMARM","MOTOR_VEHICLE_VESSEL","RIFLE","NA","POISON","FIRE_INCENDIARY_DEVICE","KNIFE","FIRE","HANDS","AUTOMATIC_RIFLE","DRUGS_NARCOTICS_SLEEPING_PILLS"]
     dataArr = []
     weaponDict = {}
+    print(crime)
+    print(location)
+    print(time)
+    print(month)
+    print(inout)
     if crime == None or location == None or time == None or month == None or inout == None:
         data = weaponDb.find({})
         for result in data:
             dataArr.append(result)
-        # weaponDict = dataArr[0]
-        # print(weaponDict)
-    else:
-        data = filtered.find({})
-        for result in data:
-            dataArr.append(result)
-        for weapon in weaponsList:
-            weaponDict[weapon] = dataArr[0][weapon][location][crime][time][month][inout]
+        weaponDict = dataArr[0]
+        del weaponDict["_id"]
+        del weaponDict[""]
+        del weaponDict["NA"]
 
-    
+    else:
+        weaponDict = master.find({})
+        for weapon in weaponsList:
+            weaponDict[weapon] = len(list(master.find({"Weapon" : weapon, "Description" : crime, "District" : location, "Inside_Outside" : inout, "Time" : time, "Month" : month})))
+            
+    print(weaponDict)
 
     return weaponDict
     # if((crime == None or crime == "NO_FILTER") and
