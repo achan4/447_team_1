@@ -5,6 +5,8 @@ from flask import Flask, jsonify, request, render_template, redirect, url_for, f
 from pymongo import MongoClient
 from flask_cors import CORS
 import certifi
+import plotly.express as px
+import plotly.graph_objects as go
 import csv
 
 # Instantiation
@@ -80,12 +82,39 @@ def createPieChartData(crime, location, time, month, inout):
         del weaponDict["_id"]
         del weaponDict[""]
         del weaponDict["NA"]
+        print(weaponDict)
 
     else:
-        weaponDict = master.find({})
+
+        #x = collection.find({"$and" : [{"$or" : [{"Weapon" : "FIREARM"}, {"Weapon" : "BLUNT_OBJECT"}]}, {"$or" : [{"District" : "SOUTHEAST"}, {"District" : "EASTERN"} ] } ] } )
+
+        weapons = {"Weapon" : weapon, "Description" : crime, "District" : location, "Inside_Outside" : inout, "Time" : time, "Month" : month}
+        for w in weapons.keys():
+            if weapons[w] == "NO_FILTER":
+                del weapons["w"]
+
         for weapon in weaponsList:
-            weaponDict[weapon] = len(list(master.find({"Weapon" : weapon, "Description" : crime, "District" : location, "Inside_Outside" : inout, "Time" : time, "Month" : month})))
+            #weaponDict[weapon] = len(list(master.find({"Weapon" : weapon, "Description" : crime, "District" : location, "Inside_Outside" : inout, "Time" : time, "Month" : month})))
+            weaponDict[weapon] = len(list(master.find(weapons)))
+
+        #Find the category only including categories if they are not no filter
+        """
+        weaponDict[weapon] = len(list(master.find({"Weapon" : weapon, "Description" : crime, "District" : location, "Inside_Outside" : inout, "Time" : time, "Month" : month})))    
+        
             
+        """
+    labels = []
+    values = []
+    print(weaponDict)
+    for item in weaponDict:
+        print(item)
+        labels.append(item)
+        #values.append(weaponDict.get(item, default=None))
+
+    print(labels, values)
+    pieChart = go.Figure(data=[go.Pie(labels=labels, values=values, textinfo='label+percent',
+                             insidetextorientation='radial'
+                            )])
     print(weaponDict)
 
     return weaponDict
