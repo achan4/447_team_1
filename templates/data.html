@@ -296,25 +296,33 @@
 
             var data = google.visualization.arrayToDataTable([
                 ['Weapons', 'percent'],
-                ['HANDGUN', 433],
-                ['BLUNT OBJECT', 246],
-                ['PERSONAL_WEAPONS', 2054],
-                ['FIREARM', 45989],
-                ['ASPHYXIATION', 23],
-                ['OTHER', 29986],
-                ['SHOTGUN', 17],
-                ['UNKNOWN', 127],
-                ['AUTOMATIC_FIREARM', 22],
-                ['OTHER_FIREARM', 38],
-                ['MOTOR_VEHICLE_VESSEL', 56],
-                ['RIFLE',8],
-                ['POISON', 5],
-                ["Fire incendiary Device", 6],
-                ["Knife", 18582],
-                ["Fire", 2316],
-                ["Hands", 7085],
-                ["Automatic Rifle", 4],
-                ["Drugs Narcotics Sleep", 1]
+                {% for item in weaponDict.keys() %}
+                    {% if item != "DRUGS_NARCOTICS_SLEEPING_PILLS" %}
+                        [{{ item }}, {{ weaponDict[item] }}],
+                    {% else %}
+                        [{{ item }}, {{ weaponDict[item] }}]
+                    {% endif %}
+                {% endfor %}
+                // ['Weapons', 'percent'],
+                // ['HANDGUN', 433],
+                // ['BLUNT OBJECT', 246],
+                // ['PERSONAL_WEAPONS', 2054],
+                // ['FIREARM', 45989],
+                // ['ASPHYXIATION', 23],
+                // ['OTHER', 29986],
+                // ['SHOTGUN', 17],
+                // ['UNKNOWN', 127],
+                // ['AUTOMATIC_FIREARM', 22],
+                // ['OTHER_FIREARM', 38],
+                // ['MOTOR_VEHICLE_VESSEL', 56],
+                // ['RIFLE',8],
+                // ['POISON', 5],
+                // ["Fire incendiary Device", 6],
+                // ["Knife", 18582],
+                // ["Fire", 2316],
+                // ["Hands", 7085],
+                // ["Automatic Rifle", 4],
+                // ["Drugs Narcotics Sleep", 1]
             ]);
 
             var options = {
