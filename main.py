@@ -20,7 +20,7 @@ crimeData = db["smallCrime"]
 team1 = cluster["team1"]
 descriptionDb = team1["description"]
 districtDb = team1["district"]
-time = team1["time"]
+timeDb = team1["time"]
 weaponDb = team1["weapon"]
 monthDb = team1["month"]
 inoutDb = team1["inout"]
@@ -53,7 +53,12 @@ def data():
     month = request.form.get("month")
     inout = request.form.get("inside/outside")
     weaponDict = createPieChartData(crime, location, time, month, inout)
-    return render_template("data.html", weaponDict = weaponDict)
+    monthDict = createMonthChartData(crime, location, time, weapon, inout)
+    inoutDict = createInOutChartData(crime, location, time, weapon, month)
+    districtDict = createDistrictChartData(crime, inout, time, weapon, month)
+    descriptionDict = createDescriptionChartData(location, inout, time, weapon, month)
+    timeDict = createTimeChartData(location, inout, crime, weapon, month)
+    return render_template("data.html", weaponDict = weaponDict, monthDict = monthDict, inoutDict = inoutDict, districtDict = districtDict, descriptionDict = descriptionDict, timeDict = timeDict)
     
 @app.route('/addDataFilter', methods=["POST"])
 def addDataFilter():
@@ -64,11 +69,16 @@ def addDataFilter():
     month = request.form.get("month")
     inout = request.form.get("inside/outside")
     weaponDict = createPieChartData(crime, location, time, month, inout)
-    return render_template("data.html", weaponDict = weaponDict)
+    monthDict = createMonthChartData(crime, location, time, weapon, inout)
+    inoutDict = createInOutChartData(crime, location, time, weapon, month)
+    districtDict = createDistrictChartData(crime, inout, time, weapon, month)
+    descriptionDict = createDescriptionChartData(location, inout, time, weapon, month)
+    timeDict = createTimeChartData(location, inout, crime, weapon, month)
+    return render_template("data.html", weaponDict = weaponDict, monthDict = monthDict, inoutDict = inoutDict, districtDict = districtDict, descriptionDict = descriptionDict, timeDict = timeDict)
 
-def createMonthChartData(weapon, crime, location, time, inout):
+def createMonthChartData(crime, location, time, weapon, inout):
     
-    months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+    monthsList = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     dataArr = []
     monthDict = {}
     if (crime == None or location == None or time == None or weapon == None or inout == None) or (crime == "NO_FILTER" and location == "NO_FILTER" and time =="NO_FILTER" and weapon =="NO_FILTER" and inout =="NO_FILTER"):
@@ -77,61 +87,59 @@ def createMonthChartData(weapon, crime, location, time, inout):
             dataArr.append(result)
         monthDict = dataArr[0]
         del monthDict["_id"]
-        del monthDict[""]
-        print(monthDict)
     
     else:
-        monthsDict = {"Weapon":weapon, "Description" : crime, "District" : location, "Inside_Outside" : inout, "Time" : time}
+        months = {"Weapon":weapon, "Description" : crime, "District" : location, "Inside_Outside" : inout, "Time" : time}
         deleted = []
         
-        for m in monthsDict.keys():
+        for m in months.keys():
             if months[m] == "NO_FILTER":
                 deleted.append(m)
         for delete in deleted:
-            del monthsDict[delete]
+            del months[delete]
 
-        for month in months:
-            tempDict = copy.deepcopy(monthsDict)
+        for month in monthsList:
+            tempDict = copy.deepcopy(months)
             tempDict["Month"] = month
             monthDict[month] = len(list(master.find(tempDict)))
 
     return monthDict
     
 
-def createTimeChartData(weapon, crime, location, inout, month):
+def createTimeChartData(location, inout, crime, weapon, month):
     
-    times = ["Morning","Late Night","Evening","Afternoon"]
+    timeList = ["Morning","Late Night","Evening","Afternoon"]
     dataArr = []
     timeDict = {}
     if (crime == None or location == None or month == None or weapon == None or inout == None) or (crime == "NO_FILTER" and location == "NO_FILTER" and month =="NO_FILTER" and weapon =="NO_FILTER" and inout =="NO_FILTER"):
-        data = time.find({})
+        data = timeDb.find({})
         for result in data:
             dataArr.append(result)
         timeDict = dataArr[0]
         del timeDict["_id"]
-        del timeDict[""]
-        print(timeDict)
     
     else:
-        timesDict = {"Weapon":weapon, "Description" : crime, "District" : location, "Inside_Outside" : inout, "Month":month}
+        times = {"Weapon":weapon, "Description" : crime, "District" : location, "Inside_Outside" : inout, "Month":month}
         deleted = []
         
-        for t in timesDict.keys():
+        for t in times.keys():
             if times[t] == "NO_FILTER":
                 deleted.append(t)
         for delete in deleted:
-            del timesDict[delete]
+            del times[delete]
 
-        for timed in times:
-            tempDict = copy.deepcopy(timesDict)
-            tempDict["Time"] = timed
-            timeDict[timed] = len(list(master.find(tempDict)))
+        print(times)
+        for tm in timeList:
+            tempDict = copy.deepcopy(times)
+            tempDict["Time"] = tm
+            timeDict[tm] = len(list(master.find(tempDict)))
 
+    print(len(list(master.find({"District" : "SOUTHEAST", "Time": "Morning"}))))
     return timeDict
 
-def createDistrictChartData(weapon, crime, time, inout, month):
+def createDistrictChartData(crime, inout, time, weapon, month):
     
-    district = ["SOUTHEAST","EASTERN","SOUTHERN","CENTRAL","NORTHEAST","SOUTHWEST","NORTHWEST","NORTHERN","WESTERN"]
+    districtList = ["SOUTHEAST","EASTERN","SOUTHERN","CENTRAL","NORTHEAST","SOUTHWEST","NORTHWEST","NORTHERN","WESTERN"]
     dataArr = []
     districtDict = {}
     if (crime == None or time == None or month == None or weapon == None or inout == None) or (crime == "NO_FILTER" and time == "NO_FILTER" and month =="NO_FILTER" and weapon =="NO_FILTER" and inout =="NO_FILTER"):
@@ -141,28 +149,27 @@ def createDistrictChartData(weapon, crime, time, inout, month):
         districtDict = dataArr[0]
         del districtDict["_id"]
         del districtDict[""]
-        print(districtDict)
     
     else:
-        districtsDict = {"Weapon":weapon, "Description" : crime, "Time":time, "Inside_Outside" : inout, "Month":month}
+        districts = {"Weapon":weapon, "Description" : crime, "Time":time, "Inside_Outside" : inout, "Month":month}
         deleted = []
         
-        for d in districtsDict.keys():
-            if districtsDict[d] == "NO_FILTER":
+        for d in districts.keys():
+            if districts[d] == "NO_FILTER":
                 deleted.append(d)
         for delete in deleted:
-            del districtsDict[delete]
+            del districts[delete]
 
-        for dis in district:
-            tempDict = copy.deepcopy(districtsDict)
+        for dis in districtList:
+            tempDict = copy.deepcopy(districts)
             tempDict["District"] = dis
             districtDict[dis] = len(list(master.find(tempDict)))
 
     return districtDict
 
-def createDescriptionChartData(weapon, location, time, inout, month):
+def createDescriptionChartData(location, inout, time, weapon, month):
     
-    description = ["LARCENY","LARCENY FROM AUTO","ROBBERY - COMMERCIAL","COMMON ASSAULT","AGG. ASSAULT","AUTO THEFT","BURGLARY","ROBBERY - STREET","ROBERT - RESIDENCE","ROBBERY - CARJACKING","SHOOTING","ARSON","RAPE","HOMICIDE"]
+    descriptionList = ["LARCENY","LARCENY FROM AUTO","ROBBERY - COMMERCIAL","COMMON ASSAULT","AGG. ASSAULT","AUTO THEFT","BURGLARY","ROBBERY - STREET","ROBERT - RESIDENCE","ROBBERY - CARJACKING","SHOOTING","ARSON","RAPE","HOMICIDE"]
     dataArr = []
     descriptionDict = {}
     if (location == None or time == None or month == None or weapon == None or inout == None) or (location == "NO_FILTER" and time == "NO_FILTER" and month =="NO_FILTER" and weapon =="NO_FILTER" and inout =="NO_FILTER"):
@@ -171,29 +178,27 @@ def createDescriptionChartData(weapon, location, time, inout, month):
             dataArr.append(result)
         descriptionDict = dataArr[0]
         del descriptionDict["_id"]
-        del descriptionDict[""]
-        print(descriptionDict)
     
     else:
-        descriptionsDict = {"Weapon":weapon, "District":location, "Time":time, "Inside_Outside" : inout, "Month":month}
+        descriptions = {"Weapon":weapon, "District":location, "Time":time, "Inside_Outside" : inout, "Month":month}
         deleted = []
         
-        for d in descriptionsDict.keys():
-            if descriptionsDict[d] == "NO_FILTER":
+        for d in descriptions.keys():
+            if descriptions[d] == "NO_FILTER":
                 deleted.append(d)
         for delete in deleted:
-            del descriptionsDict[delete]
+            del descriptions[delete]
 
-        for d in description:
-            tempDict = copy.deepcopy(descriptionsDict)
+        for d in descriptionList:
+            tempDict = copy.deepcopy(descriptions)
             tempDict["Description"] = d
             descriptionDict[d] = len(list(master.find(tempDict)))
 
     return descriptionDict
 
-def createInOutChartData(weapon, crime, location, time, month):
+def createInOutChartData(crime, location, time, weapon, month):
     
-    inout = ["Outside","Inside","I","O"]
+    inoutList = ["Outside","Inside","NA"]
     dataArr = []
     inoutDict = {}
     if (location == None or time == None or month == None or weapon == None or crime == None) or (location == "NO_FILTER" and time == "NO_FILTER" and month =="NO_FILTER" and weapon =="NO_FILTER" and crime =="NO_FILTER"):
@@ -203,20 +208,19 @@ def createInOutChartData(weapon, crime, location, time, month):
         inoutDict = dataArr[0]
         del inoutDict["_id"]
         del inoutDict[""]
-        print(inoutDict)
     
     else:
-        InOutDict = {"Weapon":weapon, "District":location, "Time":time, "Description" :crime, "Month":month}
+        inout = {"Weapon":weapon, "District":location, "Time":time, "Description" :crime, "Month":month}
         deleted = []
         
-        for io in InOutDict.keys():
-            if InOutDict[io] == "NO_FILTER":
+        for io in inout.keys():
+            if inout[io] == "NO_FILTER":
                 deleted.append(io)
         for delete in deleted:
-            del InOutDict[delete]
+            del inout[delete]
 
-        for io in inout:
-            tempDict = copy.deepcopy(InOutDict)
+        for io in inoutList:
+            tempDict = copy.deepcopy(inout)
             tempDict["Inside_Outside"] = io
             inoutDict[io] = len(list(master.find(tempDict)))
 
@@ -242,7 +246,6 @@ def createPieChartData(crime, location, time, month, inout):
         weaponDict = dataArr[0]
         del weaponDict["_id"]
         del weaponDict[""]
-        print(weaponDict)
 
     else:
         weapons = {"Description" : crime, "District" : location, "Inside_Outside" : inout, "Time" : time, "Month" : month}
@@ -262,20 +265,6 @@ def createPieChartData(crime, location, time, month, inout):
         
     del weaponDict["NA"]
 
-
-    # labels = []
-    # values = []
-    # print(weaponDict)
-    # for item in weaponDict:
-    #     print(item)
-    #     labels.append(item)
-    #     #values.append(weaponDict.get(item, default=None))
-
-    # print(labels, values)
-    # pieChart = go.Figure(data=[go.Pie(labels=labels, values=values, textinfo='label+percent',
-    #                          insidetextorientation='radial'
-    #                         )])
-    # print(weaponDict)
 
     return weaponDict
     
