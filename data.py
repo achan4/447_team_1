@@ -158,6 +158,8 @@ for row in csvreader:
                     io = "Inside"
                 if (io == "O"):
                     io = "Outside"
+                if (io == ""):
+                    io = "NA"
                 if io in inoutDict.keys():
                     inoutDict[io] += 1
                 else:
@@ -179,17 +181,26 @@ for row in csvreader:
 
             ##### Uncomment when creating master list
             #####
-            if j == 6 or j == 7 or j == 8 or j == 10 or j == 11:
+            if j == 6 or j == 8 or j == 10 or j == 11:
                 dataDict[header[j]] = row[j]
+            elif j == 7:
+                io = row[j]
+                if row[j] == "I":
+                    io = "Inside"
+                elif row[j] == "O":
+                    io = "Outisde"
+                elif row[j] == "":
+                    io = "NA"
+                dataDict[header[j]] = io
             elif j == 3:
                 if (row[j][11] == '0' and row[j][11] >= '6') or (row[j][11] == '1' and row[j][12] < '2') :
-                    dataDict["Time"] = "MORNING"
+                    dataDict["Time"] = "Morning"
                 elif (row[j][11] == '1' and row[j][12] < '8'):
-                    dataDict["Time"] = "AFTERNOON"
+                    dataDict["Time"] = "Afternoon"
                 elif (row[j][11] == '1' and row[j][12] >= '8') or (row[j][11] == '2' and row[j][12] < '1'):
-                    dataDict["Time"] = "EVENING"
+                    dataDict["Time"] = "Evening"
                 else:
-                    dataDict["Time"] = "LATE NIGHT"
+                    dataDict["Time"] = "Late Night"
 
                 if row[j][6] == '4':
                     dataDict["Month"] = "April"
@@ -198,7 +209,7 @@ for row in csvreader:
                 elif row[j][6] == '2' and row[j][5] == '0':    
                     dataDict["Month"] = "February"
                 elif row[j][6] == '1' and row[j][5] == '0':    
-                    dataDict["Month"] = "Janurary"
+                    dataDict["Month"] = "January"
                 elif row[j][6] == '2' and row[j][5] == '1':    
                     dataDict["Month"] = "December"
                 elif row[j][6] == '1' and row[j][5] == '1':    
