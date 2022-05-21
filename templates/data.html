@@ -253,6 +253,7 @@
         </form>
     </div>
     <br>
+
     <table style="width:100%">
         <tr>
             <th>
@@ -283,7 +284,23 @@
         <tr></tr>
     </table>
 
+    <table style="width:100%">
+        <tr>
+            <th>
+                <div id="neighborhoodChart" style= "width: 100%; height: 400px;"></div>
+            </th>
+        </tr>
+        <tr></tr>
+    </table>
 
+    <table style="width:100%">
+        <tr>
+            <th>
+                <div id="history_chart" style="width: 100%; height: 400px;"></div>
+            </th>
+        </tr>
+        <tr></tr>
+    </table>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -361,6 +378,43 @@
           legend: { position: "none" },
         };
         var chart = new google.visualization.ColumnChart(document.getElementById("description_values"));
+        chart.draw(view, options);
+    }
+    </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ["District", "Number", { role: "style" }],
+            {% set counter = namespace(value=0) %}
+            {% set color = namespace(value="red") %}
+            {% for key in neighborhoodDict.keys() %}
+                {% if counter.value % 3 == 0 %}
+                    {% set color.value = "red" %}
+                {% elif counter.value % 3 == 1 %}
+                    {% set color.value = "yellow" %}
+                {% else %}
+                    {% set color.value = "blue" %}
+                {% endif %}
+                [ '{{ key }}' , {{ neighborhoodDict[key] }}, '{{ color.value }}'],
+                {% set counter.value = counter.value + 1 %}
+            {% endfor %}
+        ]);
+  
+        var view = new google.visualization.DataView(data);
+        
+  
+        var options = {
+          title: "Neighborhood Chart",
+          width: 2000,
+          height: 400,
+          bar: {groupWidth: "95%"},
+          legend: { position: "none" },
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("neighborhoodChart"));
         chart.draw(view, options);
     }
     </script>
@@ -507,6 +561,8 @@
         }
     </script>
 
+
+
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', { 'packages': ['corechart'] });
@@ -514,20 +570,27 @@
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ['Year', 'Sales', 'Expenses'],
-                ['2004', 1000, 400],
-                ['2005', 1170, 460],
-                ['2006', 660, 1120],
-                ['2007', 1030, 540]
+                ['Year', 'Crimes Committed'],
+                {% for key in historyDict.keys()|reverse %}
+                [ '{{ key }}' , {{ historyDict[key] }} ],
+                {% endfor %}
             ]);
 
             var options = {
-                title: 'Company Performance',
+                title: 'History of Crime in Baltimore',
                 curveType: 'function',
+                width:2000,
+                height:400,
+                vAxis: {
+                    viewWindow: {
+                        max: 5000,
+                        min: 0
+                    }
+                },
                 legend: { position: 'bottom' }
             };
 
-            var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+            var chart = new google.visualization.LineChart(document.getElementById('history_chart'));
 
             chart.draw(data, options);
         }
