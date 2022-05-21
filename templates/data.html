@@ -219,10 +219,10 @@
             <a href="#">Time</a>
             <select name="time" id="time" class="dropbtn">
                 <option value="NO_FILTER">NO_FILTER</option>
-                <option value="MORNING">MORNING</option>
-                <option value="AFTERNOON">AFTERNOON</option>
-                <option value="EVENING">EVENING</option>
-                <option value="LATE NIGHT">LATE NIGHT</option>
+                <option value="Morning">MORNING</option>
+                <option value="Afternoon">AFTERNOON</option>
+                <option value="Evening">EVENING</option>
+                <option value="Late Night">LATE NIGHT</option>
             </select>
             <a href="#">Month</a>
             <select name="month" id="month" class="dropbtn">
@@ -245,7 +245,7 @@
                 <option value="NO_FILTER">NO_FILTER</option>
                 <option value="Inside">INSIDE</option>
                 <option value="Outside">OUTSIDE</option>
-                <option value="">N/A</option>
+                <option value="NA">N/A</option>
             </select>
             <div class="vertical-center">
                 <input class="button" type="submit" value="Apply Changes" />
@@ -253,26 +253,118 @@
         </form>
     </div>
     <br>
-    <p>
-        {% for key in weaponDict.keys() %}
-            {{ key }}
-            {{ weaponDict[key] }}
-        {% endfor %}
-    </p>
     <table style="width:100%">
         <tr>
             <th>
-                <div id="piechart" style="width: 600px; height: 500px;"></div>
+                <div id="piechart" style="width: 550px; height: 400px;"></div>
             </th>
             <th>
-                <div id="barchart_values" style="width: 600px; height: 500px;"></div>
+                <div id="barchart_values" style="width: 550px; height: 400px;"></div>
             </th>
             <th>
-                <div id="curve_chart" style="width: 600px; height: 500px"></div>
+                <div id="inoutchart" style="width: 550px; height: 400px"></div>
             </th>
         </tr>
         <tr></tr>
     </table>
+
+    <table style="width:100%">
+        <tr>
+            <th>
+                <div id="columnchart_values" style="width: 550px; height: 400px;"></div>
+            </th>
+            <th>
+                <div id="description_values" style="width: 550px; height: 400px;"></div>
+            </th>
+            <th>
+                <div id="time_values" style="width: 550px; height: 400px"></div>
+            </th>
+        </tr>
+        <tr></tr>
+    </table>
+
+
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ["District", "Name", { role: "style" } ],
+            ["SOUTHEAST", {{ districtDict['SOUTHEAST'] }}, "red"],
+            ["EASTERN", {{ districtDict['EASTERN'] }}, "orange"],
+            ["CENTRAL", {{ districtDict['CENTRAL'] }}, "yellow"],
+            ["NORTHEAST", {{ districtDict['NORTHEAST'] }}, "green"],
+            ["SOUTHWEST", {{ districtDict['SOUTHWEST'] }}, "blue"],
+            ["NORTHWEST", {{ districtDict['NORTHWEST'] }}, "pink"],
+            ["NORTHERN", {{ districtDict['NORTHERN'] }}, "purple"],
+            ["WESTERN", {{ districtDict['August'] }}, "silver"],
+        ]);
+  
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                         { calc: "stringify",
+                           sourceColumn: 1,
+                           type: "string",
+                           role: "annotation" },
+                         2]);
+  
+        var options = {
+          title: "Crimes Committed In Each District",
+          width: 600,
+          height: 400,
+          bar: {groupWidth: "95%"},
+          legend: { position: "none" },
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+        chart.draw(view, options);
+    }
+    </script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ["District", "Name", { role: "style" } ],
+            ["LARCENY", {{ descriptionDict['LARCENY'] }}, "red"],
+            ["LARCENY FROM AUTO", {{ descriptionDict['LARCENY FROM AUTO'] }}, "orange"],
+            ["ROBBERY - COMMERCIAL", {{ descriptionDict['ROBBERY - COMMERCIAL'] }}, "yellow"],
+            ["COMMON ASSAULT", {{ descriptionDict['COMMON ASSAULT'] }}, "green"],
+            ["AGG. ASSAULT", {{ descriptionDict['AGG. ASSAULT'] }}, "blue"],
+            ["AUTO THEFT", {{ descriptionDict['AUTO THEFT'] }}, "pink"],
+            ["BURGLARY", {{ descriptionDict['BURGLARY'] }}, "purple"],
+            ["ROBBERY - STREET", {{ descriptionDict['ROBBERY - STREET'] }}, "silver"],
+            ["ROBBERY - RESIDENCE", {{ descriptionDict['ROBBERY - RESIDENCE'] }}, "brown"],
+            ["ROBBERY - CARJACKING", {{ descriptionDict['ROBBERY - CARJACKING'] }}, "black"],
+            ["SHOOTING", {{ descriptionDict['SHOOTING'] }}, "grey"],
+            ["ARSON", {{ descriptionDict['ARSON'] }}, "violet"],
+            ["RAPE", {{ descriptionDict['RAPE'] }}, "copper"],
+            ["HOMICIDE", {{ descriptionDict['HOMICIDE'] }}, "platinum"]
+        ]);
+  
+        var view = new google.visualization.DataView(data);
+        view.setColumns([0, 1,
+                         { calc: "stringify",
+                           sourceColumn: 1,
+                           type: "string",
+                           role: "annotation" },
+                         2]);
+  
+        var options = {
+          title: "Description of Each Crime",
+          width: 600,
+          height: 400,
+          bar: {groupWidth: "95%"},
+          legend: { position: "none" },
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById("description_values"));
+        chart.draw(view, options);
+    }
+    </script>
+
     <script>
         function openNav() {
             document.getElementById("mySidenav").style.width = "350px";
@@ -306,16 +398,57 @@
         }
     </script>
 
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "350px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Inside/Outside', 'percent'],
+                {% for key in inoutDict.keys() %}
+                [ '{{ key }}' , {{ inoutDict[key] }} ],
+                {% endfor %}
+            ]);
+
+            var options = {
+                title: "Inside/Outside Crime Pie Chart"
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('inoutchart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
     <script type="text/javascript">
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ["Element", "Density", { role: "style" }],
-                ["Copper", 8.94, "#b87333"],
-                ["Silver", 10.49, "silver"],
-                ["Gold", 19.30, "gold"],
-                ["Platinum", 21.45, "color: #e5e4e2"]
+                ["Month", "Name", { role: "style" }],
+                ["January", {{ monthDict['January'] }}, "red"],
+                ["February", {{ monthDict['February'] }}, "orange"],
+                ["March", {{ monthDict['March'] }}, "yellow"],
+                ["April", {{ monthDict['April'] }}, "green"],
+                ["May", {{ monthDict['May'] }}, "blue"],
+                ["June", {{ monthDict['June'] }}, "pink"],
+                ["July", {{ monthDict['July'] }}, "purple"],
+                ["August", {{ monthDict['August'] }}, "silver"],
+                ["September", {{ monthDict['September'] }}, "brown"],
+                ["October", {{ monthDict['October'] }}, "black"],
+                ["November", {{ monthDict['November'] }}, "grey"],
+                ["December", {{ monthDict['December'] }}, "violet"]
             ]);
 
             var view = new google.visualization.DataView(data);
@@ -329,13 +462,47 @@
                 2]);
 
             var options = {
-                title: "Density of Precious Metals, in g/cm^3",
+                title: "Crimes Committed In Each Month",
                 width: 600,
                 height: 400,
                 bar: { groupWidth: "95%" },
                 legend: { position: "none" },
             };
             var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+            chart.draw(view, options);
+        }
+    </script>
+
+    <script type="text/javascript">
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ["Time", "Description", { role: "style" }],
+                ["Morning", {{ timeDict['Morning'] }}, "red"],
+                ["Afternoon", {{ timeDict['Afternoon'] }}, "orange"],
+                ["Evening", {{ timeDict['Evening'] }}, "yellow"],
+                ["Late Night", {{ timeDict['Late Night'] }}, "green"]
+            ]);
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([0, 1,
+                {
+                    calc: "stringify",
+                    sourceColumn: 1,
+                    type: "string",
+                    role: "annotation"
+                },
+                2]);
+
+            var options = {
+                title: "Crimes Committed In Each Month",
+                width: 600,
+                height: 400,
+                bar: { groupWidth: "95%" },
+                legend: { position: "none" },
+            };
+            var chart = new google.visualization.BarChart(document.getElementById("time_values"));
             chart.draw(view, options);
         }
     </script>
