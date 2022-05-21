@@ -291,7 +291,7 @@
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ["District", "Name", { role: "style" } ],
+            ["District", "Number", { role: "style" } ],
             ["SOUTHEAST", {{ districtDict['SOUTHEAST'] }}, "red"],
             ["EASTERN", {{ districtDict['EASTERN'] }}, "orange"],
             ["CENTRAL", {{ districtDict['CENTRAL'] }}, "yellow"],
@@ -328,7 +328,7 @@
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ["District", "Name", { role: "style" } ],
+            ["District", "Number", { role: "style" } ],
             ["LARCENY", {{ descriptionDict['LARCENY'] }}, "red"],
             ["LARCENY FROM AUTO", {{ descriptionDict['LARCENY FROM AUTO'] }}, "orange"],
             ["ROBBERY - COMMERCIAL", {{ descriptionDict['ROBBERY - COMMERCIAL'] }}, "yellow"],
@@ -436,7 +436,7 @@
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ["Month", "Name", { role: "style" }],
+                ["Month", "Number", { role: "style" }],
                 ["January", {{ monthDict['January'] }}, "red"],
                 ["February", {{ monthDict['February'] }}, "orange"],
                 ["March", {{ monthDict['March'] }}, "yellow"],
@@ -478,7 +478,7 @@
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ["Time", "Description", { role: "style" }],
+                ["Time", "Number", { role: "style" }],
                 ["Morning", {{ timeDict['Morning'] }}, "red"],
                 ["Afternoon", {{ timeDict['Afternoon'] }}, "orange"],
                 ["Evening", {{ timeDict['Evening'] }}, "yellow"],
