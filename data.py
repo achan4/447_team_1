@@ -16,10 +16,11 @@ time = db["time"]
 description = db["description"]
 FilteredData = db["Filtered"]
 district = db["district"]
-month = db["month"]
+monthDB = db["month"]
 inout = db["inout"]
+history = db["history"]
 
-file = open("test.csv")
+file = open("Part1_Crime_data.csv")
 # file = open("Part1_Crime_data.csv")
 csvreader = csv.reader(file)
 header = next(csvreader)
@@ -34,6 +35,7 @@ weaponList = []
 districtList = []
 monthList = []
 inoutList = []
+historyList = []
 
 # dictionaries for the collections for number of occurences (for graphs)
 timeDict = {}
@@ -42,6 +44,7 @@ weaponDict = {}
 districtDict = {}
 inoutDict = {}
 monthDict ={}
+historyDict = {}
 
 weapons = []
 descriptions = []
@@ -62,6 +65,43 @@ for row in csvreader:
         # Rest of elements are fine to index
         else:
             if (j == 3):
+                
+                if row[j][6] == '4':
+                    month = "Apr" 
+                elif row[j][6] == '3':
+                    month = "Mar"
+                elif row[j][6] == '2' and row[j][5] == '0':    
+                    month = "Feb"
+                elif row[j][6] == '1' and row[j][5] == '0':    
+                    month = "Jan"
+                elif row[j][6] == '2' and row[j][5] == '1':    
+                    month = "Dec"
+                elif row[j][6] == '1' and row[j][5] == '1':    
+                    month = "Nov"
+                elif row[j][6] == '0' and row[j][5] == '1':    
+                    month = "Oct"
+                elif row[j][6] == '9':    
+                    month = "Sep"
+                elif row[j][6] == '8':    
+                    month = "Aug"
+                elif row[j][6] == '7':    
+                    month = "Jul"
+                elif row[j][6] == '6':    
+                    month = "Jun"
+                elif row[j][6] == '5':    
+                    month = "May"
+
+                year = row[j][0:4]
+
+                monthYear = month + year
+
+                if year[0] == "2" and year[2] != "0":
+
+                    if monthYear in historyDict.keys():
+                        historyDict[monthYear] += 1
+                    else:
+                        historyDict[monthYear] = 1
+
                 # timeDict[row[j]] += 1
                 if (row[j][11] == '0' and row[j][12] >= '6') or (row[j][11] == '1' and row[j][12] < '2') :
                     if "Morning" in timeDict.keys():
@@ -353,10 +393,12 @@ print(inoutDict)
 monthList.append(monthDict)
 timeList.append(timeDict)
 inoutList.append(inoutDict)
+historyList.append(historyDict)
 # descriptionList.append(descriptionDict)
 # weaponList.append(weaponDict)
 # districtList.append(districtDict)
 
+history.insert_many(historyList)
 #inout.insert_many(inoutList)
 #month.insert_many(monthList)
 #time.insert_many(timeList)
@@ -367,7 +409,7 @@ inoutList.append(inoutDict)
 # Inserts every entry in the dataList into the database collection
 # uncomment when inserting to master collection
 #######
-collection.insert_many(dataList)
+#collection.insert_many(dataList)
 #######
 
 file.close()
