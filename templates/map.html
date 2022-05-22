@@ -1,112 +1,543 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
-        <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
 
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Map</title>
-        <style>
-            
-            #map {position: absolute; top: 200px; bottom: 100px; left: 250px; right: 250px;}
-            
-            body {
-                margin: 0;
-                font-family: Arial, Helvetica, sans-serif;
-            }
-            
-            .legend {
-                line-height: 18px;
-                color: #555;
-                background-color: white;
-                line-height: 24px;
-                padding: 6px 8px;
-            }
-            
-            .legend i {
-                width: 15px;
-                height: 15px;
-                float: left;
-                margin-right: 8px;
-                opacity: 0.7;
-            }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
 
-            .topnav {
-                overflow: hidden;
-                background-color: #333;
-            }
+        .topnav {
+            overflow: hidden;
+            background-color: #333;
+        }
 
-            .topnav a {
-                float: left;
-                color: #f2f2f2;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                font-size: 17px;
-            }
+        .topnav a {
+            float: left;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
 
-            .topnav a:hover {
-                background-color: #ddd;
-                color: black;
-            }
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
 
-            .topnav a.active {
-                background-color: #04AA6D;
-                color: white;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="topnav">
-            <a href="/home">Home</a>
-            <a class="active" href="/map">Map</a>
-            <a href="/data">Data</a>
-        </div>
+        .topnav a.active {
+            background-color: #04AA6D;
+            color: white;
+        }
 
-        <center>
-            <h1 style="color:black;">
-                Baltimore
-            </h1>
-        </center>
-    </body>
-    <body>
-        <div id = "map"></div>
-        <script>
+        #map {
+            position: absolute;
+            top: 200px;
+            bottom: 100px;
+            left: 250px;
+            right: 250px;
+        }
 
-            var map = L.map('map').setView([39.28571, -76.60839], 12);
-            L.tileLayer('https://api.maptiler.com/maps/hybrid/{z}/{x}/{y}.jpg?key=fHqpumuM69AG9TmV1Tdv', {attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">&copy; MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>',
-            }).addTo(map);
+        h1 {
+            text-align: center;
+        }
+    </style>
+</head>
 
-            var marker = new L.marker([39.28571, -76.60839]).addTo(map)
-            
+<body>
+    <div class="topnav">
+        <a href="/home">Home</a>
+        <a class="active" href="/map">Map</a>
+        <a href="/data">Data</a>
+    </div>
+    <div>
+        <h1 style="color:black;">
+            Baltimore
+        </h1>
+        <div id="map"></div>
+    </div>
+</body>
 
-            //Creates the map key
-            var legend = L.control({position: 'bottomright'});
-            
-            legend.onAdd = function(map){
-                var div = L.DomUtil.create('div', 'legend');
-
-                div.innerHTML += "<h4>MAP KEY</h4>";
-                div.innerHTML += '<i style="background: #448D40"></i><span>LARCENY</span><br>';
-                div.innerHTML += '<i style="background: #477AC2"></i><span>BURGLARY</span><br>';
-                div.innerHTML += '<i style="background: #de2d26"></i><span>AGG. ASSAULT</span><br>';
-
-                cat = ["AGG. ASSAULT","LARCENY","COMMON ASSAULT","BURGLARY","ROBBERY - COMMERCIAL"];
-
-                
-                return div;
-            };
-
-            legend.addTo(map);
-
-        //Goes through each row and gets long and lad coordinates
-        //  for (var i = 0; i < crimes.length; i++){
-        //      var marker = new L.marker([parseFloat(crimes[i]['Latitude']), parseFloat(crimes[i]['Longitude'])]).addTo(map); 
-        // }
-
-        </script>
-    </body>
-    
 </html>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYWNoYW4zMTcyIiwiYSI6ImNsM2gwMDFoaDBmZnkzY2xqbjRodDQ0NHUifQ.wO_wkDLvfhejJhBRYQ5GUg';
+    const map = new mapboxgl.Map({
+        container: 'map', // container ID
+        style: 'mapbox://styles/mapbox/light-v10', // style URL
+        center: [-68.137343, 45.137451], // starting position
+        zoom: 5 // starting zoom
+    });
+
+    map.on('load', () => {
+        // Add a data source containing GeoJSON data.
+        map.addSource('maine', {
+            'type': 'geojson',
+            'data': {
+                "type": "FeatureCollection",
+                "features": [
+                    {
+                        "type": "Feature",
+                        "properties": {},
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        -76.58088684082031,
+                                        39.21815723034759
+                                    ],
+                                    [
+                                        -76.58260345458984,
+                                        39.231721271929146
+                                    ],
+                                    [
+                                        -76.56578063964844,
+                                        39.22587043822116
+                                    ],
+                                    [
+                                        -76.55754089355469,
+                                        39.23358279854209
+                                    ],
+                                    [
+                                        -76.59221649169922,
+                                        39.25033431567789
+                                    ],
+                                    [
+                                        -76.60457611083984,
+                                        39.242357901670495
+                                    ],
+                                    [
+                                        -76.62036895751953,
+                                        39.25485388093592
+                                    ],
+                                    [
+                                        -76.63307189941406,
+                                        39.2596389854539
+                                    ],
+                                    [
+                                        -76.6238021850586,
+                                        39.27532120490019
+                                    ],
+                                    [
+                                        -76.6080093383789,
+                                        39.257778150283364
+                                    ],
+                                    [
+                                        -76.60148620605469,
+                                        39.26655022649287
+                                    ],
+                                    [
+                                        -76.58123016357422,
+                                        39.26043647112078
+                                    ],
+                                    [
+                                        -76.57814025878906,
+                                        39.26655022649287
+                                    ],
+                                    [
+                                        -76.59358978271484,
+                                        39.27505543380571
+                                    ],
+                                    [
+                                        -76.61453247070312,
+                                        39.28143366182128
+                                    ],
+                                    [
+                                        -76.64234161376953,
+                                        39.28781130912004
+                                    ],
+                                    [
+                                        -76.67427062988281,
+                                        39.25591726571984
+                                    ],
+                                    [
+                                        -76.58740997314452,
+                                        39.213901304594934
+                                    ],
+                                    [
+                                        -76.56509399414062,
+                                        39.19474644641092
+                                    ],
+                                    [
+                                        -76.53488159179688,
+                                        39.20299431736876
+                                    ],
+                                    [
+                                        -76.58088684082031,
+                                        39.21815723034759
+                                    ]
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {},
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        -76.6512680053711,
+                                        39.279573405302806
+                                    ],
+                                    [
+                                        -76.66946411132812,
+                                        39.31783159381383
+                                    ],
+                                    [
+                                        -76.71203613281249,
+                                        39.31676914869444
+                                    ],
+                                    [
+                                        -76.70963287353516,
+                                        39.2758527440647
+                                    ],
+                                    [
+                                        -76.67461395263672,
+                                        39.25618310939581
+                                    ],
+                                    [
+                                        -76.6512680053711,
+                                        39.279573405302806
+                                    ]
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {},
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        -76.66877746582031,
+                                        39.31783159381383
+                                    ],
+                                    [
+                                        -76.65092468261719,
+                                        39.28090216499977
+                                    ],
+                                    [
+                                        -76.64234161376953,
+                                        39.28860847419942
+                                    ],
+                                    [
+                                        -76.62654876708983,
+                                        39.285951221980014
+                                    ],
+                                    [
+                                        -76.63410186767577,
+                                        39.310394139146446
+                                    ],
+                                    [
+                                        -76.62895202636719,
+                                        39.3130504637139
+                                    ],
+                                    [
+                                        -76.64543151855469,
+                                        39.32234680556202
+                                    ],
+                                    [
+                                        -76.66877746582031,
+                                        39.31783159381383
+                                    ]
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {},
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        -76.63307189941406,
+                                        39.30986286213216
+                                    ],
+                                    [
+                                        -76.62517547607422,
+                                        39.28488829286195
+                                    ],
+                                    [
+                                        -76.59770965576172,
+                                        39.277713099383746
+                                    ],
+                                    [
+                                        -76.60423278808594,
+                                        39.30933158108431
+                                    ],
+                                    [
+                                        -76.62208557128906,
+                                        39.31703476148695
+                                    ],
+                                    [
+                                        -76.63307189941406,
+                                        39.30986286213216
+                                    ]
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {},
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        -76.52870178222656,
+                                        39.24182610848299
+                                    ],
+                                    [
+                                        -76.52492523193358,
+                                        39.31676914869444
+                                    ],
+                                    [
+                                        -76.6021728515625,
+                                        39.3072064165576
+                                    ],
+                                    [
+                                        -76.59736633300781,
+                                        39.281699408719746
+                                    ],
+                                    [
+                                        -76.58397674560547,
+                                        39.28409108543717
+                                    ],
+                                    [
+                                        -76.56749725341797,
+                                        39.27558697498652
+                                    ],
+                                    [
+                                        -76.56612396240234,
+                                        39.25990481501755
+                                    ],
+                                    [
+                                        -76.55445098876953,
+                                        39.26442376336898
+                                    ],
+                                    [
+                                        -76.54071807861327,
+                                        39.25033431567789
+                                    ],
+                                    [
+                                        -76.52870178222656,
+                                        39.24182610848299
+                                    ]
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {},
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        -76.61762237548828,
+                                        39.31623792008409
+                                    ],
+                                    [
+                                        -76.6028594970703,
+                                        39.30986286213216
+                                    ],
+                                    [
+                                        -76.56784057617188,
+                                        39.31411296530539
+                                    ],
+                                    [
+                                        -76.585693359375,
+                                        39.328986293384574
+                                    ],
+                                    [
+                                        -76.6238021850586,
+                                        39.33190746834004
+                                    ],
+                                    [
+                                        -76.61762237548828,
+                                        39.31623792008409
+                                    ]
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {},
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        -76.62551879882812,
+                                        39.33217302364838
+                                    ],
+                                    [
+                                        -76.61624908447266,
+                                        39.33217302364838
+                                    ],
+                                    [
+                                        -76.6238021850586,
+                                        39.3706678669209
+                                    ],
+                                    [
+                                        -76.66980743408203,
+                                        39.36960622467088
+                                    ],
+                                    [
+                                        -76.67461395263672,
+                                        39.354210598262206
+                                    ],
+                                    [
+                                        -76.65607452392578,
+                                        39.322612397176876
+                                    ],
+                                    [
+                                        -76.64337158203125,
+                                        39.32340916597052
+                                    ],
+                                    [
+                                        -76.62895202636719,
+                                        39.31464421005064
+                                    ],
+                                    [
+                                        -76.62139892578125,
+                                        39.319159627523035
+                                    ],
+                                    [
+                                        -76.62551879882812,
+                                        39.33217302364838
+                                    ]
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {
+                            "stroke": "#d20f0f",
+                            "stroke-width": 2,
+                            "stroke-opacity": 1,
+                            "fill": "#8c2121",
+                            "fill-opacity": 0.5
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        -76.62174224853516,
+                                        39.37013704781351
+                                    ],
+                                    [
+                                        -76.61521911621094,
+                                        39.332438577948174
+                                    ],
+                                    [
+                                        -76.58466339111328,
+                                        39.33031411531054
+                                    ],
+                                    [
+                                        -76.56578063964844,
+                                        39.3130504637139
+                                    ],
+                                    [
+                                        -76.5256118774414,
+                                        39.31783159381383
+                                    ],
+                                    [
+                                        -76.52595520019531,
+                                        39.36934081158634
+                                    ],
+                                    [
+                                        -76.62174224853516,
+                                        39.37013704781351
+                                    ]
+                                ]
+                            ]
+                        }
+                    },
+                    {
+                        "type": "Feature",
+                        "properties": {},
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        -76.67083740234375,
+                                        39.36987163674661
+                                    ],
+                                    [
+                                        -76.7178726196289,
+                                        39.36827914916014
+                                    ],
+                                    [
+                                        -76.71100616455078,
+                                        39.31809720257259
+                                    ],
+                                    [
+                                        -76.66912078857422,
+                                        39.319159627523035
+                                    ],
+                                    [
+                                        -76.65813446044922,
+                                        39.322081212938706
+                                    ],
+                                    [
+                                        -76.67598724365234,
+                                        39.35235227593244
+                                    ],
+                                    [
+                                        -76.67083740234375,
+                                        39.36987163674661
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                ]
+            }
+        });
+
+        // Add a new layer to visualize the polygon.
+        map.addLayer({
+            'id': 'maine',
+            'type': 'fill',
+            'source': 'maine', // reference the data source
+            'layout': {},
+            'paint': {
+                'fill-color': '#0080ff', // blue color fill
+                'fill-opacity': 0.5
+            }
+        });
+        // Add a black outline around the polygon.
+        map.addLayer({
+            'id': 'outline',
+            'type': 'line',
+            'source': 'maine',
+            'layout': {},
+            'paint': {
+                'line-color': '#000',
+                'line-width': 3
+            }
+        });
+    });
+
+</script>>
