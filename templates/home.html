@@ -1,45 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Home Page</title>
-        <style>
-            body {
-                margin: 0;
-                font-family: Arial, Helvetica, sans-serif;
-            }
+<head>
+<title>Home</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+.fa-anchor,.fa-coffee {font-size:200px}
 
-            .topnav {
-                overflow: hidden;
-                background-color: #333;
-            }
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+}
 
-            .topnav a {
-                float: left;
-                color: #f2f2f2;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                font-size: 17px;
-            }
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
 
-            .topnav a:hover {
-                background-color: #ddd;
-                color: black;
-            }
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
 
-            .topnav a.active {
-                background-color: #04AA6D;
-                color: white;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="topnav">
-            <a class="active" href="/home">Home</a>
-            <a href="/map">Map</a>
-            <a href="/data">Data</a>
-        </div>
-    </body>
+.topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="topnav">
+    <a class="active" href="/home">Home</a>
+    <a href="/map">Map</a>
+    <a href="/data">Data</a>
+</div>
+
+<!-- Header -->
+<header class="w3-container w3-pale-green w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin w3-jumbo">Visualizing Crime In Baltimore City</h1>
+  <p class="w3-xlarge">CMSC 447 Spring 2022 Team 1</p>
+</header>
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-twothird">
+      <h1>Data Source</h1>
+      <h5 class="w3-padding-32">The data used for this website comes from information available to the public <a href="https://data.baltimorecity.gov/search?q=crime%20data">here</a>. At this site, there is a CSV file available for download, which is what this project uses as a source for data.</h5>
+
+      <p class="w3-text-grey">The CSV file used containing data of Baltimore City crime is over 500,000 entries long. The data is organized into different sections that we can use to graph and observe trends. The sections used to create this web application are the time and date, description, whether the crime was inside or outside, the weapon used, the district, and the neighborhood.</p>
+    </div>
+
+    <div class="w3-third w3-center">
+      <!-- <i class=""></i> -->
+      <!-- <img src="/Excel_Logo.png" alt="csv picture"> -->
+      <img src="https://icons.veryicon.com/png/o/file-type/doctype/csv-2.png" alt="csv picture" style="height:300px; width: 300px; margin-top: 50px">
+    </div>
+  </div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
+  <div class="w3-content">
+    <div class="w3-third w3-center">
+        <img src="https://www.instana.com/media/01_INSTANA_IconSet_MongoDB.svg" alt="csv picture" style="height:300px; width: 300px;">
+    </div>
+
+    <div class="w3-twothird">
+      <h1>Database</h1>
+      <h5 class="w3-padding-32">For this project we decided to use MongoDB to hold the data from our data source. The database contains many different collections that stores the counts of crimes sorted by different categories.  </h5>
+
+      <p class="w3-text-grey">We store the various collections for later use in our map and graphs. The main objective of this is to speed up the time it takes for the database to send information back to the user in order to generate a more responsive user experience. </p>
+    </div>
+  </div>
+</div>
+
+<!-- Third Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container">
+    <div class="w3-content">
+      <div class="w3-twothird">
+        <h1>Development Tools</h1>
+        <h5 class="w3-padding-32">Our team has chosen to use several tools to facilitate the development process. Almost all of the tools were new for us so it was a great learning experience.</h5>
+  
+        <p class="w3-text-grey">This web application uses the Flask micro web framework for our backend development. For our front end development, our team has used HTML templates, CSS, and JavaScript. For our map of the city of Baltimore, we use Leaflet, which is an open source JavaScript library to build wab mapping applications.</p>
+      </div>
+  
+      <div class="w3-third w3-center">
+        <img src="https://cms-assets.tutsplus.com/uploads/users/30/posts/16037/preview_image/flask.png" alt="flask pic" style="width: 100%; height: auto; margin-top: 50px; margin-left: 20px">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="w3-container w3-dark-grey w3-padding-64 w3-center w3-opacity">  
+    <h3>Contacts:</h3>
+   <p>cboie1@umbc.edu  |  achan4@umbc.edu  |  jmedloc1@umbc.edu  |  wr42338@umbc.edu  |  pnguyen5@umbc.edu</p>
+  </footer>
+
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+
+</body>
 </html>
