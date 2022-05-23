@@ -76,101 +76,6 @@
         zoom: 10 // starting zoom
     });
 
-    // function showSoutheast() {
-
-    //     map.addSource("SOUTHEAST", {
-    //         type: "geojson",
-    //         data: {
-    //             "type": "Feature",
-    //             "properties": {
-    //                 "stroke": "#555555",
-    //                 "stroke-width": 2,
-    //                 "stroke-opacity": 1,
-    //                 "fill": "#cd1d1d",
-    //                 "fill-opacity": 0.7,
-    //                 "name": "SOUTHEAST",
-    //                 "value": 71739
-    //             },
-    //             "geometry": {
-    //                 "type": "Polygon",
-    //                 "coordinates": [
-    //                     [
-    //                         [
-    //                             -76.52870178222656,
-    //                             39.24182610848299
-    //                         ],
-    //                         [
-    //                             -76.52492523193358,
-    //                             39.31676914869444
-    //                         ],
-    //                         [
-    //                             -76.6021728515625,
-    //                             39.3072064165576
-    //                         ],
-    //                         [
-    //                             -76.59736633300781,
-    //                             39.281699408719746
-    //                         ],
-    //                         [
-    //                             -76.58397674560547,
-    //                             39.28409108543717
-    //                         ],
-    //                         [
-    //                             -76.56749725341797,
-    //                             39.27558697498652
-    //                         ],
-    //                         [
-    //                             -76.56612396240234,
-    //                             39.25990481501755
-    //                         ],
-    //                         [
-    //                             -76.55445098876953,
-    //                             39.26442376336898
-    //                         ],
-    //                         [
-    //                             -76.54071807861327,
-    //                             39.25033431567789
-    //                         ],
-    //                         [
-    //                             -76.52870178222656,
-    //                             39.24182610848299
-    //                         ]
-    //                     ]
-    //                 ]
-    //             }
-    //         }
-    //     });
-
-    //           //Add a new layer to visualize the polygon.
-    //     map.addLayer({
-    //         'id': 'SOUTHEAST',
-    //         'type': 'fill',
-    //         'source': 'SOUTHEAST', // reference the data source
-    //         'layout': {},
-    //         'paint': {
-    //             'fill-color': '#0080ff', // blue color fill
-    //             'fill-opacity': 0.5
-    //         }
-    //     });
-    //     // Add a black outline around the polygon.
-    //     map.addLayer({
-    //         'id': 'outline',
-    //         'type': 'line',
-    //         'source': 'SOUTHEAST',
-    //         'layout': {},
-    //         'paint': {
-    //             'line-color': '#000',
-    //             'line-width': 3
-    //         }
-    //     });
-        
-    // }
-
-    // map.on("load", () => {
-    //     showSoutheast();
-
-    // });
-
     map.on('load', () => {
         // Add a data source containing GeoJSON data.
         map.addSource('maine', {
@@ -181,7 +86,13 @@
                     {
                         "type": "Feature",
                         "properties": {
-                            "name": "NORTHEAST"
+                            "stroke": "#555555",
+                            "stroke-width": 2,
+                            "stroke-opacity": 1,
+                            "fill": "#555555",
+                            "fill-opacity": 0.5,
+                            "name": "SOUTHERN",
+                            "crimes": 58606
                         },
                         "geometry": {
                             "type": "Polygon",
@@ -278,7 +189,13 @@
                     {
                         "type": "Feature",
                         "properties": {
-                            "name": "NORTHEAST"
+                            "stroke": "#555555",
+                            "stroke-width": 2,
+                            "stroke-opacity": 1,
+                            "fill": "#555555",
+                            "fill-opacity": 0.5,
+                            "name": "SOUTHWEST",
+                            "crimes": 51688
                         },
                         "geometry": {
                             "type": "Polygon",
@@ -315,7 +232,13 @@
                     {
                         "type": "Feature",
                         "properties": {
-                            "name": "NORTHEAST"
+                            "stroke": "#555555",
+                            "stroke-width": 2,
+                            "stroke-opacity": 1,
+                            "fill": "#555555",
+                            "fill-opacity": 0.5,
+                            "name": "WESTERN",
+                            "crimes": 41420
                         },
                         "geometry": {
                             "type": "Polygon",
@@ -360,7 +283,13 @@
                     {
                         "type": "Feature",
                         "properties": {
-                            "name": "NORTHEAST"
+                            "stroke": "#555555",
+                            "stroke-width": 2,
+                            "stroke-opacity": 1,
+                            "fill": "#555555",
+                            "fill-opacity": 0.5,
+                            "name": "CENTRAL",
+                            "crimes": 60998
                         },
                         "geometry": {
                             "type": "Polygon",
@@ -400,10 +329,10 @@
                             "stroke": "#555555",
                             "stroke-width": 2,
                             "stroke-opacity": 1,
-                            "fill": "#cd1d1d",
-                            "fill-opacity": 0.7,
+                            "fill": "#555555",
+                            "fill-opacity": 0.5,
                             "name": "SOUTHEAST",
-                            "value": 71739
+                            "crimes": 77422
                         },
                         "geometry": {
                             "type": "Polygon",
@@ -456,7 +385,13 @@
                     {
                         "type": "Feature",
                         "properties": {
-                            "name": "NORTHEAST"
+                            "stroke": "#555555",
+                            "stroke-width": 2,
+                            "stroke-opacity": 1,
+                            "fill": "#555555",
+                            "fill-opacity": 0.5,
+                            "name": "EASTERN",
+                            "crimes": 44782
                         },
                         "geometry": {
                             "type": "Polygon",
@@ -496,9 +431,10 @@
                             "stroke": "#555555",
                             "stroke-width": 2,
                             "stroke-opacity": 1,
-                            "fill": "#4267d7",
+                            "fill": "#555555",
                             "fill-opacity": 0.5,
-                            "name": "NORTHEAST"
+                            "name": "NORTHERN",
+                            "crimes": 56733
                         },
                         "geometry": {
                             "type": "Polygon",
@@ -554,10 +490,10 @@
                             "stroke": "#555555",
                             "stroke-width": 2,
                             "stroke-opacity": 1,
-                            "fill": "#ff000d",
-                            "fill-opacity": 0.7,
+                            "fill": "#555555",
+                            "fill-opacity": 0.5,
                             "name": "NORTHEAST",
-                            "Value": 77422
+                            "crimes": 77422
                         },
                         "geometry": {
                             "type": "Polygon",
@@ -601,9 +537,10 @@
                             "stroke": "#555555",
                             "stroke-width": 2,
                             "stroke-opacity": 1,
-                            "fill": "#b93131",
+                            "fill": "#555555",
                             "fill-opacity": 0.5,
-                            "name": "NORTHEAST"
+                            "name": "NORTHWEST",
+                            "crimes": 51508
                         },
                         "geometry": {
                             "type": "Polygon",
@@ -645,80 +582,50 @@
             }
         });
 
-        // //Add a new layer to visualize the polygon.
-        // map.addLayer({
-        //     'id': 'maine',
-        //     'type': 'fill',
-        //     'source': 'maine', // reference the data source
-        //     'layout': {},
-        //     'paint': {
-        //         'fill-color': '#0080ff', // blue color fill
-        //         'fill-opacity': 0.5
-        //     }
-        // });
-        // // Add a black outline around the polygon.
-        // map.addLayer({
-        //     'id': 'outline',
-        //     'type': 'line',
-        //     'source': 'maine',
-        //     'layout': {},
-        //     'paint': {
-        //         'line-color': '#000',
-        //         'line-width': 3
-        //     }
-        // });
-
-        // map.on("click", "maine", (e) => {
-        //   const trailhead = e.features[0];
-
-        //   new mapboxgl.Popup()
-
-        //     .setHTML(`<b>${trailhead.properties.Name}`)
-
-        //     .setLngLat(trailhead.geometry.coordinates)
-        //     .addTo(map);
-
-        // });
-
-        // map.on("mouseenter", "maine", () => {
-        //   map.getCanvas().style.cursor = "pointer";
-        // });
-
-        // map.on("mouseleave", "maine", () => {
-        //   map.getCanvas().style.cursor = "";
-        // });
         // Add a layer showing the state polygons.
-map.addLayer({
-'id': 'states-layer',
-'type': 'fill',
-'source': 'maine',
-'paint': {
-'fill-color': 'rgba(200, 100, 240, 0.4)',
-'fill-outline-color': 'rgba(200, 100, 240, 1)'
-}
-});
- 
-// When a click event occurs on a feature in the states layer,
-// open a popup at the location of the click, with description
-// HTML from the click event's properties.
-map.on('click', 'states-layer', (e) => {
-new mapboxgl.Popup()
-.setLngLat(e.lngLat)
-.setHTML(e.features[0].properties.name)
-.addTo(map);
-});
- 
-// Change the cursor to a pointer when
-// the mouse is over the states layer.
-map.on('mouseenter', 'states-layer', () => {
-map.getCanvas().style.cursor = 'pointer';
-});
- 
-// Change the cursor back to a pointer
-// when it leaves the states layer.
-map.on('mouseleave', 'states-layer', () => {
-map.getCanvas().style.cursor = '';
-});
+        map.addLayer({
+            'id': 'states-layer',
+            'type': 'fill',
+            'source': 'maine',
+            'paint': {
+                'fill-color': 'rgba(200, 100, 240, 0.4)',
+                'fill-outline-color': 'rgba(200, 100, 240, 1)'
+            }
+        });
+
+        // When a click event occurs on a feature in the states layer,
+        // open a popup at the location of the click, with description
+        // HTML from the click event's properties.
+        map.on('click', 'states-layer', (e) => {
+            new mapboxgl.Popup()
+                .setLngLat(e.lngLat)
+                .setHTML('District: ' + e.features[0].properties.name + '<br> Crimes Commited: ' + e.features[0].properties.crimes)
+                .addTo(map);
+        });
+
+                // Add a black outline around the polygon.
+        map.addLayer({
+            'id': 'outline',
+            'type': 'line',
+            'source': 'maine',
+            'layout': {},
+            'paint': {
+                'line-color': '#000',
+                'line-width': 3
+            }
+        });
+
+        // Change the cursor to a pointer when
+        // the mouse is over the states layer.
+        map.on('mouseenter', 'states-layer', () => {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        // Change the cursor back to a pointer
+        // when it leaves the states layer.
+        map.on('mouseleave', 'states-layer', () => {
+            map.getCanvas().style.cursor = '';
+        });
     });
 
 </script>>
